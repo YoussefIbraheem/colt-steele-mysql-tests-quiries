@@ -1,0 +1,5 @@
+SELECT students.first_name , papers.title , papers.grade FROM students JOIN papers ON papers.student_id = students.id ORDER BY papers.grade DESC;
+SELECT students.first_name , papers.title , papers.grade  FROM students LEFT JOIN papers ON papers.student_id = students.id;
+SELECT students.first_name , IFNULL(papers.title , "MISSING") , IFNULL(papers.grade,0)  FROM students LEFT JOIN papers ON papers.student_id = students.id;
+SELECT students.first_name , IFNULL(AVG(papers.grade),0.0)  AS average FROM students LEFT JOIN papers ON papers.student_id = students.id GROUP BY students.id ORDER BY average DESC;
+SELECT students.first_name , IFNULL(AVG(papers.grade),0.0)  AS average , CASE WHEN IFNULL(AVG(papers.grade),0.0) > 75.0 THEN "PASSING" ELSE "FAILING" END AS `status` FROM students LEFT JOIN papers ON papers.student_id = students.id GROUP BY students.id ORDER BY average DESC;
